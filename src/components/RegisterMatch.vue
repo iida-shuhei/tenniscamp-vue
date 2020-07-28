@@ -9,14 +9,14 @@
         </v-radio-group>
         <v-select
           v-if="this.match == 1"
-          v-model="single"
+          v-model="single1"
           :items="players"
           label="自分の名前を選択"
           required
         ></v-select>
         <v-select
           v-if="this.match == 1"
-          v-model="single"
+          v-model="single2"
           :items="players"
           label="相手の名前を選択"
           required
@@ -37,14 +37,14 @@
         ></v-select>
         <v-select
           v-if="this.match == 2"
-          v-model="double1"
+          v-model="double3"
           :items="players"
           label="相手の名前を選択"
           required
         ></v-select>
         <v-select
           v-if="this.match == 2"
-          v-model="double2"
+          v-model="double4"
           :items="players"
           label="相手の名前を選択"
           required
@@ -52,8 +52,8 @@
         <v-row>
           <v-col>
             <v-select
-              v-model="single"
-              :items="players"
+              v-model="score1"
+              :items="scores"
               label="自分のスコア"
               required
             ></v-select>
@@ -61,8 +61,8 @@
           <v-col cols="1"><div><br>−</div></v-col>
           <v-col>
             <v-select
-              v-model="single"
-              :items="players"
+              v-model="score2"
+              :items="scores"
               label="相手のスコア"
               required
             ></v-select>
@@ -112,10 +112,14 @@ export default {
       name: "",
       players: ["いいだ", "おかだ", "やまぐち", "いしい"],
       missions: ["クリアならず", "1つクリア", "2つクリア"],
+      scores:["0","1","2","3","4","5","6","7"],
       match: "1",
-      single: "",
+      single1: "",
+      single2: "",
       double1: "",
       double2: "",
+      score1:"",
+      score2:"",
       result: "1",
       mustMission: "",
       addMission: "",
@@ -179,5 +183,6 @@ export default {
 .link {
   text-align: center;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 </style>

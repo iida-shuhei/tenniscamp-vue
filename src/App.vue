@@ -1,15 +1,15 @@
 <template>
   <v-app>
     <router-view></router-view>
-    <Footer/>
+    <!-- <Footer/> -->
   </v-app>
 </template>
 
 <script>
-import Footer from '@/components/Footer'
+// import Footer from '@/components/Footer'
 export default {
   components: {
-    Footer,
+    // Footer,
   },
 }
 </script>

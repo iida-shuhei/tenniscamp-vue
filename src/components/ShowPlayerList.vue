@@ -104,8 +104,7 @@ export default {
           show:false
         },
         {
-          src:
-            "https://lh3.googleusercontent.com/proxy/avgPjV6Ka6-BjenBVx7V99MFZcc0AXAKqt0OOk5g9pt0adpe-YY5ChAdbyL6SzAcW8y1GDUDITmdyuVMK7yQo6IU4AA3Ag",
+          src:"https://pbs.twimg.com/profile_images/1098840651586650112/ZeGCzNRZ_400x400.png",
           name: "おぜき",
           win: 4,
           lose: 6,
@@ -131,8 +130,7 @@ export default {
           show:false
         },
         {
-          src:
-            "https://lh3.googleusercontent.com/proxy/K2Cfmgv6P87Z2qH211mC7AoGV72KgdxiIysvgjIv6098iVUlxFCnWRyA-uGGA01c8XNvrMdP3HchPvEjHuOyrFJ_RGcK-p9EW7stnSYL",
+          src:"https://rentry.jp/note/wp-content/uploads/2018/10/smartphone_happy_tereru_man.png",
           name: "やまだ",
           win: 1,
           lose: 9,
