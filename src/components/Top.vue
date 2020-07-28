@@ -26,8 +26,13 @@
         <v-col>
           <router-link :to="{ name : 'ShowPlayerList' }">選手一覧</router-link>
         </v-col>
+      </v-row>
+      <v-row>
         <v-col>
           <router-link :to="{ name : 'RegisterMatch' }">試合結果登録</router-link>
+        </v-col>
+        <v-col>
+          <router-link :to="{ name : 'EditMatch' }">試合結果編集</router-link>
         </v-col>
       </v-row>
     </v-container>
@@ -53,7 +58,7 @@ export default {
 .title {
   text-align: center;
   margin-top: 50px;
-  font-family: "Hannotate SC", sans-serif;
+  font-family: 'arial unicode ms';
   letter-spacing: 0.2em;
 }
 .text {

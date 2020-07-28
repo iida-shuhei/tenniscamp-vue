@@ -13,27 +13,30 @@
                   <span v-text="player.win"></span>回
                   <br />負け :
                   <span v-text="player.lose"></span>回
-                  <br />現在の順位 :
-                  <span v-text="player.ranking"></span>位
+                  <br />ミッション数 :
+                  <span v-text="player.mission"></span>個
+                  <br />現在の得点 :
+                  <span v-text="player.score"></span>点
+                  <br />
                 </v-col>
               </div>
               <v-avatar class="ma-3" size="125" tile>
                 <v-img :src="player.src"></v-img>
               </v-avatar>
             </div>
-              <v-card-actions>
-                <v-btn @click="player.show = !player.show" tile outlined color="success">
-                  対戦結果を表示
-                </v-btn>
-              </v-card-actions>
+            <v-card-actions>
+              現在の順位 :
+              <span v-text="player.ranking"></span>位
+              <v-btn @click="player.show = !player.show" tile outlined color="success" class="right">対戦結果を表示</v-btn>
+            </v-card-actions>
 
-              <v-expand-transition>
-                <div v-show="player.show">
-                  <v-divider></v-divider>
-                  <v-card-text>＜第一試合＞いいだ 6-0 おかだ</v-card-text>
-                  <v-card-text>＜第二試合＞いいだ 6-0 やまぐち</v-card-text>
-                </div>
-              </v-expand-transition>
+            <v-expand-transition>
+              <div v-show="player.show">
+                <v-divider></v-divider>
+                <v-card-text>＜第一試合＞いいだ 6-0 おかだ</v-card-text>
+                <v-card-text>＜第二試合＞いいだ 6-0 やまぐち</v-card-text>
+              </div>
+            </v-expand-transition>
           </v-card>
         </v-col>
       </v-row>
@@ -55,8 +58,10 @@ export default {
           name: "いいだ",
           win: 10,
           lose: 0,
+          mission: 10,
+          score: 100,
           ranking: 1,
-          show:false
+          show: false,
         },
         {
           src:
@@ -64,8 +69,10 @@ export default {
           name: "おかだ",
           win: 9,
           lose: 1,
+          mission: 10,
+          score: 90,
           ranking: 2,
-          show:false
+          show: false,
         },
         {
           src:
@@ -73,8 +80,10 @@ export default {
           name: "やまぐち",
           win: 8,
           lose: 2,
+          mission: 10,
+          score: 80,
           ranking: 3,
-          show:false
+          show: false,
         },
         {
           src:
@@ -82,8 +91,10 @@ export default {
           name: "いしい",
           win: 7,
           lose: 3,
+          mission: 10,
+          score: 70,
           ranking: 4,
-          show:false
+          show: false,
         },
         {
           src:
@@ -91,8 +102,10 @@ export default {
           name: "たかだ",
           win: 6,
           lose: 4,
+          mission: 10,
+          score: 60,
           ranking: 5,
-          show:false
+          show: false,
         },
         {
           src:
@@ -100,16 +113,21 @@ export default {
           name: "よだ",
           win: 5,
           lose: 5,
+          mission: 10,
+          score: 50,
           ranking: 6,
-          show:false
+          show: false,
         },
         {
-          src:"https://pbs.twimg.com/profile_images/1098840651586650112/ZeGCzNRZ_400x400.png",
+          src:
+            "https://pbs.twimg.com/profile_images/1098840651586650112/ZeGCzNRZ_400x400.png",
           name: "おぜき",
           win: 4,
           lose: 6,
+          mission: 10,
+          score: 40,
           ranking: 7,
-          show:false
+          show: false,
         },
         {
           src:
@@ -117,8 +135,10 @@ export default {
           name: "うえむら",
           win: 3,
           lose: 7,
+          mission: 10,
+          score: 30,
           ranking: 8,
-          show:false
+          show: false,
         },
         {
           src:
@@ -126,16 +146,21 @@ export default {
           name: "さとう",
           win: 2,
           lose: 8,
+          mission: 10,
+          score: 20,
           ranking: 9,
-          show:false
+          show: false,
         },
         {
-          src:"https://rentry.jp/note/wp-content/uploads/2018/10/smartphone_happy_tereru_man.png",
+          src:
+            "https://rentry.jp/note/wp-content/uploads/2018/10/smartphone_happy_tereru_man.png",
           name: "やまだ",
           win: 1,
           lose: 9,
+          mission: 10,
+          score: 10,
           ranking: 10,
-          show:false
+          show: false,
         },
       ],
     };
@@ -154,5 +179,8 @@ export default {
   text-align: center;
   margin-top: 30px;
   margin-bottom: 50px;
+}
+.right {
+  margin: 0 0 0 auto;
 }
 </style>

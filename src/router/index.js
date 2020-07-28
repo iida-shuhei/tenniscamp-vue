@@ -25,9 +25,9 @@ Vue.use(VueRouter)
     component: () => import('../views/ShowMatchList.vue')
   },
   {
-    path: '/showPlayerDetail',
-    name: 'ShowPlayerDetail',
-    component: () => import('../views/ShowPlayerDetail.vue')
+    path: '/editMatch',
+    name: 'EditMatch',
+    component: () => import('../views/EditMatch.vue')
   },
   {
     path: '/showPlayerList',

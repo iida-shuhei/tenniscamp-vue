@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="title">試合結果登録</h2>
+    <h2 class="title">試合結果編集</h2>
     <v-card class="mx-auto card" max-width="350">
       <v-container>
         <v-radio-group v-model="match" row>
@@ -87,20 +87,20 @@
             outlined
             color="indigo"
             class="ma-2 white--text register"
-            @click="registerSingles()"
+            @click="editSingles()"
             v-if="this.match == 1"
           >
-            シングルスの試合結果登録
+            シングルスの試合結果編集
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
           </v-btn>
           <v-btn
             outlined
             color="indigo"
             class="ma-2 white--text register"
-            @click="registerDoubles()"
+            @click="editDoubles()"
             v-if="this.match == 2"
           >
-            ダブルスの試合結果登録
+            ダブルスの試合結果編集
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
           </v-btn>
           <br />
@@ -149,11 +149,10 @@ export default {
     };
   },
   methods: {
-   registerSingles() {
-
+   editSingles() {
     this.$router.push('/')
    },
-   registerDoubles() {
+   editDoubles() {
     this.$router.push('/')
    }
   }
