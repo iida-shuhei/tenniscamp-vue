@@ -9,44 +9,30 @@
         </v-radio-group>
         <v-select
           v-if="this.match == 1"
-          v-model="single1"
-          :items="players"
+          v-model="singles1"
+          :items="singlesPlayers"
           label="自分の名前を選択"
           required
         ></v-select>
         <v-select
           v-if="this.match == 1"
-          v-model="single2"
-          :items="players"
+          v-model="singles2"
+          :items="singlesPlayers"
           label="相手の名前を選択"
           required
         ></v-select>
         <v-select
           v-if="this.match == 2"
-          v-model="double1"
-          :items="players"
-          label="自分の名前を選択"
+          v-model="doubles1"
+          :items="doublesPlayers"
+          label="自分たちのペアを選択"
           required
         ></v-select>
         <v-select
           v-if="this.match == 2"
           v-model="double2"
-          :items="players"
-          label="自分のペアを選択"
-          required
-        ></v-select>
-        <v-select
-          v-if="this.match == 2"
-          v-model="double3"
-          :items="players"
-          label="相手の名前を選択"
-          required
-        ></v-select>
-        <v-select
-          v-if="this.match == 2"
-          v-model="double4"
-          :items="players"
-          label="相手の名前を選択"
+          :items="doublesPlayers"
+          label="相手を選択"
           required
         ></v-select>
         <v-row>
@@ -118,7 +104,8 @@ export default {
   data() {
     return {
       name: "",
-      players: ["いいだ", "おかだ", "やまぐち", "いしい"],
+      singlesPlayers: ["いいだ", "おかだ", "やまぐち", "いしい"],
+      doublesPlayers: ["いいだ・やまだ", "おかだ・いけだ", "やまぐち・たなか", "いしい・さとう"],
       missions: [
        { 
          id : 1,

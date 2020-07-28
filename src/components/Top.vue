@@ -21,7 +21,10 @@
     <v-container class="container">
       <v-row>
         <v-col>
-          <router-link :to="{ name : 'RegisterPlayer' }">選手登録</router-link>
+          <router-link :to="{ name : 'RegisterSinglesPlayer' }">シングルス選手登録</router-link>
+        </v-col>
+        <v-col>
+          <router-link :to="{ name : 'RegisterDoublesPlayer' }">ダブルス選手登録</router-link>
         </v-col>
         <v-col>
           <router-link :to="{ name : 'ShowPlayerList' }">選手一覧</router-link>

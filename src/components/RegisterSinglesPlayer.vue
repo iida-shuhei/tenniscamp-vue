@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="title">選手登録</h2>
+    <h2 class="title">シングルス選手登録</h2>
     <v-card class="mx-auto card" max-width="350">
       <v-container>
         <v-row>
@@ -23,8 +23,8 @@
             <br />
             <br />
           </v-col>
-          <v-btn outlined color="indigo" class="ma-2 white--text register" @click="registerPlayer()">
-            選手登録
+          <v-btn outlined color="indigo" class="ma-2 white--text register" @click="registerSinglesPlayer()">
+            シングルス選手登録
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
           </v-btn>
           <br />
@@ -45,7 +45,7 @@ export default {
     };
   },
   methods: {
-    registerPlayer() {
+    registerSinglesPlayer() {
       this.$router.push('/')
     }
   }

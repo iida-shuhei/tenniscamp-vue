@@ -15,9 +15,14 @@ Vue.use(VueRouter)
     component: () => import('../views/RegisterMatch.vue')
   },
   {
-    path: '/registerPlayer',
-    name: 'RegisterPlayer',
-    component: () => import('../views/RegisterPlayer.vue')
+    path: '/registerSinglesPlayer',
+    name: 'RegisterSinglesPlayer',
+    component: () => import('../views/RegisterSinglesPlayer.vue')
+  },
+  {
+    path: '/registerDoublesPlayer',
+    name: 'RegisterDoublesPlayer',
+    component: () => import('../views/RegisterDoublesPlayer.vue')
   },
   {
     path: '/showMatchList',
