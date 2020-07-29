@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "local-serve": "vue-cli-service serve --mode local",
-    "dep-build": "vue-cli-service build --mode deploy",
+    "dep-build": "vue-cli-service build --mode deploy"
   },
   "dependencies": {
     "axios": "^0.19.2",
