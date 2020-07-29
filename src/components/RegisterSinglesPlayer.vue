@@ -56,32 +56,34 @@ export default {
       this.file = files[0];
     },
     registerSinglesPlayer() {
-      this.isPush = true
-      let formData = new FormData();
-      let config = ""
-      const obj = {
-        singlesPlayerName: this.name,
-      }
-      if(this.file !== "") {
-        formData.append('file', this.file);
-        formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
-        config = {
-          headers: {
-            'content-type': 'multipart/form-data'
-          }
-        };
-      } else {
-        formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
-      }
-      Promise.resolve().then(() =>
-      this.$axios.post('/registerSinglesPlayer', formData, config)
-        .then((res) => {
-          if(res.data === '') {
-            alert('登録しました')
-            this.$router.push('/')
-          }
-        })
-    )} 
+      this.$router.push('/')
+      // this.isPush = true
+      // let formData = new FormData();
+      // let config = ""
+      // const obj = {
+      //   singlesPlayerName: this.name,
+      // }
+      // if(this.file !== "") {
+      //   formData.append('file', this.file);
+      //   formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
+      //   config = {
+      //     headers: {
+      //       'content-type': 'multipart/form-data'
+      //     }
+      //   };
+      // } else {
+      //   formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
+      // }
+      // Promise.resolve().then(() =>
+      // this.$axios.post('/registerSinglesPlayer', formData, config)
+      //   .then((res) => {
+      //     if(res.data === '') {
+      //       alert('登録しました')
+      //       this.$router.push('/')
+      //     }
+      //   })
+      // )
+    } 
   }
 };
 </script>
