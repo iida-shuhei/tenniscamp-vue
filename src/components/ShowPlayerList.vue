@@ -7,36 +7,29 @@
           <v-card>
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
-                <v-card-title v-text="player.name"></v-card-title>
+                <v-card-title v-text="player.singlesPlayerName"></v-card-title>
                 <v-col>
                   勝ち :
-                  <span v-text="player.win"></span>回
+                  <span v-text="player.totalWin"></span>回
                   <br />負け :
-                  <span v-text="player.lose"></span>回
+                  <span v-text="player.totalLose"></span>回
                   <br />ミッション数 :
-                  <span v-text="player.mission"></span>個
+                  <span v-text="player.totalMission"></span>個
                   <br />現在の得点 :
-                  <span v-text="player.score"></span>点
+                  <span v-text="player.totalScore"></span>点
                   <br />
                 </v-col>
               </div>
               <v-avatar class="ma-3" size="125" tile>
-                <v-img :src="player.src"></v-img>
+                <v-img :src="player.imagePath"></v-img>
               </v-avatar>
             </div>
             <v-card-actions>
               現在の順位 :
               <span v-text="player.ranking"></span>位
-              <v-btn @click="player.show = !player.show" tile outlined color="success" class="right">対戦結果を表示</v-btn>
+              <v-btn @click="openPlayerDetail()" tile outlined color="success" class="right">対戦結果を表示</v-btn>
             </v-card-actions>
 
-            <v-expand-transition>
-              <div v-show="player.show">
-                <v-divider></v-divider>
-                <v-card-text>＜第一試合＞いいだ 6-0 おかだ</v-card-text>
-                <v-card-text>＜第二試合＞いいだ 6-0 やまぐち</v-card-text>
-              </div>
-            </v-expand-transition>
           </v-card>
         </v-col>
       </v-row>
@@ -53,118 +46,23 @@ export default {
     return {
       players: [
         {
-          src:
-            "https://www.pakutaso.com/shared/img/thumb/MAX76_gjmax20140531_TP_V.jpg",
-          name: "いいだ",
-          win: 10,
-          lose: 0,
-          mission: 10,
-          score: 100,
-          ranking: 1,
+          imagePath: '',
+          singlesPlayerName: '',
+          totalWin: '',
+          totalLose: '',
+          totalMission: '',
+          totalScore: '',
+          ranking: '',
           show: false,
-        },
-        {
-          src:
-            "https://www.pakutaso.com/shared/img/thumb/pp816IMGL0940_TP_V.jpg",
-          name: "おかだ",
-          win: 9,
-          lose: 1,
-          mission: 10,
-          score: 90,
-          ranking: 2,
-          show: false,
-        },
-        {
-          src:
-            "https://assets.st-note.com/production/uploads/images/19855572/rectangle_large_type_2_72744417486396017220388f631f2107.jpeg?fit=bounds&format=jpeg&quality=45&width=960",
-          name: "やまぐち",
-          win: 8,
-          lose: 2,
-          mission: 10,
-          score: 80,
-          ranking: 3,
-          show: false,
-        },
-        {
-          src:
-            "https://publicdomainq.net/images/201811/30s/publicdomainq-0028892nxr.jpg",
-          name: "いしい",
-          win: 7,
-          lose: 3,
-          mission: 10,
-          score: 70,
-          ranking: 4,
-          show: false,
-        },
-        {
-          src:
-            "https://i.pinimg.com/originals/8d/32/f8/8d32f89bcd8e85b1ea266142e394fbae.jpg",
-          name: "たかだ",
-          win: 6,
-          lose: 4,
-          mission: 10,
-          score: 60,
-          ranking: 5,
-          show: false,
-        },
-        {
-          src:
-            "https://www.pakutaso.com/shared/img/thumb/MAX86_gaijinnohannou20140531_TP_V.jpg",
-          name: "よだ",
-          win: 5,
-          lose: 5,
-          mission: 10,
-          score: 50,
-          ranking: 6,
-          show: false,
-        },
-        {
-          src:
-            "https://pbs.twimg.com/profile_images/1098840651586650112/ZeGCzNRZ_400x400.png",
-          name: "おぜき",
-          win: 4,
-          lose: 6,
-          mission: 10,
-          score: 40,
-          ranking: 7,
-          show: false,
-        },
-        {
-          src:
-            "https://www.ta-me-shi-te.net/master/wp-content/uploads/2014/12/LIG86_tonakaiagnet500-thumb-792x500-3718-630x397.jpg",
-          name: "うえむら",
-          win: 3,
-          lose: 7,
-          mission: 10,
-          score: 30,
-          ranking: 8,
-          show: false,
-        },
-        {
-          src:
-            "https://d1f5hsy4d47upe.cloudfront.net/cb/cb1fac909a2449dc7472146ce1657ff1_t.jpeg",
-          name: "さとう",
-          win: 2,
-          lose: 8,
-          mission: 10,
-          score: 20,
-          ranking: 9,
-          show: false,
-        },
-        {
-          src:
-            "https://rentry.jp/note/wp-content/uploads/2018/10/smartphone_happy_tereru_man.png",
-          name: "やまだ",
-          win: 1,
-          lose: 9,
-          mission: 10,
-          score: 10,
-          ranking: 10,
-          show: false,
-        },
+        }
       ],
     };
   },
+  created() {
+    this.$axios.get('/showPlayers').then((res) => {
+      this.players = res.data
+    })
+  }
 };
 </script>
 

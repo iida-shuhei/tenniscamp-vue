@@ -25,7 +25,7 @@
           v-if="this.match == 2"
           v-model="doubles1"
           :items="doublesPlayers"
-          label="自分たちのペアを選択"
+          label="自分たちを選択"
           required
         ></v-select>
         <v-select
@@ -120,7 +120,7 @@ export default {
          name : "２つクリア"
        },
       ],
-      scores:["0","1","2","3","4","5","6","7"],
+      scores:["0","1","2","3","4"],
       match: "1",
       single1: "",
       single2: "",

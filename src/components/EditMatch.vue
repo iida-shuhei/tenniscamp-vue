@@ -120,7 +120,7 @@ export default {
          name : "２つクリア"
        },
       ],
-      scores:["0","1","2","3","4","5","6","7"],
+      scores:["0","1","2","3","4"],
       match: "1",
       single1: "",
       single2: "",
