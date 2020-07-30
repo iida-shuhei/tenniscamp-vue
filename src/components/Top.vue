@@ -26,16 +26,16 @@
         <v-col>
           <router-link :to="{ name : 'RegisterDoublesPlayer' }">ダブルス選手登録</router-link>
         </v-col>
+      </v-row>
+      <v-row>
         <v-col>
           <router-link :to="{ name : 'ShowPlayerList' }">選手一覧</router-link>
         </v-col>
-      </v-row>
-      <v-row>
         <v-col>
           <router-link :to="{ name : 'RegisterMatch' }">試合結果登録</router-link>
         </v-col>
         <v-col>
-          <router-link :to="{ name : 'EditMatch' }">試合結果編集</router-link>
+          <router-link :to="{ name : 'EditMatch' }">試合結果一覧</router-link>
         </v-col>
       </v-row>
     </v-container>
@@ -43,12 +43,26 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       img: require("@/assets/mario.jpg"),
     };
   },
+  created() {
+    this.$axios.get('/showAllSinglesPlayers')
+      .then((res) => {
+        this.setSinglesPlayers(res.data)
+    })
+    this.$axios.get('/showAllDoublesPlayer')
+      .then((res) => {
+        this.setDoublesPlayers(res.data)
+    })
+  },
+  methods: {
+    ...mapActions(["setSinglesPlayers","setDoublesPlayers"]),
+  }
 };
 </script>
 

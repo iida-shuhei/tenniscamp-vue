@@ -1,148 +1,125 @@
 <template>
   <div>
-    <h2 class="title">試合結果編集</h2>
-    <v-card class="mx-auto card" max-width="350">
+    <div v-if="loading">
+      <Loading />
+    </div>
+    <div v-if="!loading">
+      <h2 class="title">試合結果一覧</h2>
       <v-container>
         <v-radio-group v-model="match" row>
           <v-radio label="シングルス" value="1"></v-radio>
           <v-radio label="ダブルス" value="2"></v-radio>
         </v-radio-group>
-        <v-select
-          v-if="this.match == 1"
-          v-model="singles1"
-          :items="singlesPlayers"
-          label="自分の名前を選択"
-          required
-        ></v-select>
-        <v-select
-          v-if="this.match == 1"
-          v-model="singles2"
-          :items="singlesPlayers"
-          label="相手の名前を選択"
-          required
-        ></v-select>
-        <v-select
-          v-if="this.match == 2"
-          v-model="doubles1"
-          :items="doublesPlayers"
-          label="自分たちのペアを選択"
-          required
-        ></v-select>
-        <v-select
-          v-if="this.match == 2"
-          v-model="double2"
-          :items="doublesPlayers"
-          label="相手を選択"
-          required
-        ></v-select>
-        <v-row>
-          <v-col>
-            <v-select v-model="score1" :items="scores" label="自分のスコア" required></v-select>
+        <v-row dense>
+          <v-col v-for="(result, i) in results" :key="i" cols="12">
+            <v-card v-if="this.match == 1">
+              <div class="d-flex flex-no-wrap justify-space-between">
+                <div>
+                  <div>{{ transferSinglesPlayerName(result.playerId) }}</div>
+                  <span>{{ result.playerScore }}</span>
+                  vs
+                  <div>{{ transferSinglesOpponentName(result.opponentId) }}</div>
+                  <span>{{ result.opponentScore }}</span>
+                </div>
+              </div>
+            </v-card>
+            <v-card v-if="this.match == 2">
+              <div class="d-flex flex-no-wrap justify-space-between">
+                <div>
+                  <div>{{ transferDoublesPlayerName(result.playerId) }}</div>
+                  <span>{{ result.playerScore }}</span>
+                  vs
+                  <div>{{ transferDoublesOpponentName(result.opponentId) }}</div>
+                  <span>{{ result.opponentScore }}</span>
+                </div>
+              </div>
+            </v-card>
           </v-col>
-          <v-col cols="1">
-            <div>
-              <br />−
-            </div>
-          </v-col>
-          <v-col>
-            <v-select v-model="score2" :items="scores" label="相手のスコア" required></v-select>
-          </v-col>
-        </v-row>
-        <v-radio-group v-model="result" row>
-          <v-radio label="勝ち" value="1"></v-radio>
-          <v-radio label="負け" value="2"></v-radio>
-        </v-radio-group>
-        <v-select 
-          v-model="mustMission" 
-          :items="missions" 
-          item-text="name"
-          item-value="id" 
-          label="必須ミッション" 
-          required>
-        </v-select>
-        <v-select 
-          v-model="addMission" 
-          :items="missions" 
-          item-text="name"
-          item-value="id" 
-          label="追加ミッション" 
-          required>
-        </v-select>
-        <v-row>
-          <v-btn
-            outlined
-            color="indigo"
-            class="ma-2 white--text register"
-            @click="editSingles()"
-            v-if="this.match == 1"
-          >
-            シングルスの試合結果編集
-            <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
-          </v-btn>
-          <v-btn
-            outlined
-            color="indigo"
-            class="ma-2 white--text register"
-            @click="editDoubles()"
-            v-if="this.match == 2"
-          >
-            ダブルスの試合結果編集
-            <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
-          </v-btn>
-          <br />
         </v-row>
       </v-container>
-    </v-card>
-    <div class="link">
-      <router-link to="/">トップに戻る</router-link>
+      <div class="link">
+        <router-link to="/">トップに戻る</router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Loading from "../components/Loading";
 export default {
   data() {
     return {
-      name: "",
-      singlesPlayers: ["いいだ", "おかだ", "やまぐち", "いしい"],
-      doublesPlayers: ["いいだ・やまだ", "おかだ・いけだ", "やまぐち・たなか", "いしい・さとう"],
-      missions: [
-       { 
-         id : 1,
-         name : "クリアならず"
-       },
-       { 
-         id : 2,
-         name : "１つクリア"
-       },
-       { 
-         id : 3,
-         name : "２つクリア"
-       },
-      ],
-      scores:["0","1","2","3","4"],
       match: "1",
-      single1: "",
-      single2: "",
-      double1: "",
-      double2: "",
-      double3: "",
-      double4: "",
-      score1:"0",
-      score2:"0",
-      result: "1",
-      mustMission: 1,
-      addMission: 1,
+      loading: true,
+      results: [
+        {
+          playerId: "",
+          playerScore: "",
+          opponentId: "",
+          opponentScore: "",
+        },
+      ],
     };
   },
+  components: {
+    Loading,
+  },
+  watch: {
+    match() {
+      this.loading = true;
+      if (this.match === "1") {
+        this.$axios.get("/showSinglesResult").then((res) => {
+          console.log(res.data)
+          this.results = res.data;
+          this.loading = false;
+        });
+      } else {
+        this.loading = true;
+        this.$axios.get("/showDoublesResult").then((res) => {
+          this.results = res.data;
+          this.loading = false;
+        });
+      }
+    },
+  },
+  created() {
+    this.$axios.get("/showDoublesResult").then((res) => {
+      this.results = res.data;
+      this.loading = false;
+    });
+  },
   methods: {
-   editSingles() {
-    this.$router.push('/')
-   },
-   editDoubles() {
-    this.$router.push('/')
-   }
-  }
+    transferSinglesPlayerName(playerId) {
+      let player = this.$store.state.singlesPlayers.find(
+        (player) => player.singlesPlayerId === playerId
+      );
+      return player.singlesPlayerName;
+    },
+    transferSinglesOpponentName(opponentId) {
+      let opponent = this.$store.state.singlesPlayers.find(
+        (opponent) => opponent.singlesPlayerId === opponentId
+      );
+      return opponent.singlesPlayerName;
+    },
+    transferDoublesPlayerName(playerId) {
+      let player = this.$store.state.doublesPlayers.find(
+        (player) => player.doublesPlayerId === playerId
+      );
+      return player.doublesPlayerName;
+    },
+    transferDoublesOpponentName(opponentId) {
+      let opponent = this.$store.state.doublesPlayers.find(
+        (opponent) => opponent.doublesPlayerId === opponentId
+      );
+      return opponent.doublesPlayerName;
+    },
+    deleteSingles() {
+      this.$router.push("/");
+    },
+    deleteDoubles() {
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 

@@ -2,12 +2,17 @@
   <div>
     <h2 class="title">選手一覧</h2>
     <v-container>
+      <v-radio-group v-model="scores" row>
+        <v-radio label="総合" value="1"></v-radio>
+        <v-radio label="シングルス" value="2"></v-radio>
+        <v-radio label="ダブルス" value="3"></v-radio>
+      </v-radio-group>
       <v-row dense>
         <v-col v-for="(player, i) in players" :key="i" cols="12">
           <v-card>
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
-                <v-card-title v-text="player.singlesPlayerName"></v-card-title>
+                <v-card-title v-text="player.playerName"></v-card-title>
                 <v-col>
                   勝ち :
                   <span v-text="player.totalWin"></span>回
@@ -47,7 +52,7 @@ export default {
       players: [
         {
           imagePath: '',
-          singlesPlayerName: '',
+          playerName: '',
           totalWin: '',
           totalLose: '',
           totalMission: '',
@@ -56,13 +61,33 @@ export default {
           show: false,
         }
       ],
+      scores:"1"
     };
   },
   created() {
     this.$axios.get('/showPlayers').then((res) => {
       this.players = res.data
     })
-  }
+  },
+  watch: {
+    scores() {
+      if(this.scores === "1") {
+        this.$axios.get('/showPlayers').then((res) => {
+          this.players = res.data
+        })
+      }
+      if(this.scores === "2") {
+        this.$axios.get('/showSinglesPlayers').then((res) => {
+          this.players = res.data
+        })
+      }
+      if(this.scores === "3") {
+        this.$axios.get('/showDoublesPlayers').then((res) => {
+          this.players = res.data
+        })
+      }
+    }
+  },
 };
 </script>
 

@@ -10,28 +10,36 @@
         <v-select
           v-if="this.match == 1"
           v-model="singles1"
-          :items="singlesPlayers"
+          :items="singlesPlayers1"
+          item-text="singlesPlayerName"
+          item-value="singlesPlayerId"
           label="自分の名前を選択"
           required
         ></v-select>
         <v-select
           v-if="this.match == 1"
           v-model="singles2"
-          :items="singlesPlayers"
+          :items="singlesPlayers2"
+          item-text="singlesPlayerName"
+          item-value="singlesPlayerId"
           label="相手の名前を選択"
           required
         ></v-select>
         <v-select
           v-if="this.match == 2"
           v-model="doubles1"
-          :items="doublesPlayers"
+          :items="doublesPlayers1"
+          item-text="doublesPlayerName"
+          item-value="doublesPlayerId"
           label="自分たちを選択"
           required
         ></v-select>
         <v-select
           v-if="this.match == 2"
-          v-model="double2"
-          :items="doublesPlayers"
+          v-model="doubles2"
+          :items="doublesPlayers2"
+          item-text="doublesPlayerName"
+          item-value="doublesPlayerId"
           label="相手を選択"
           required
         ></v-select>
@@ -48,10 +56,6 @@
             <v-select v-model="score2" :items="scores" label="相手のスコア" required></v-select>
           </v-col>
         </v-row>
-        <v-radio-group v-model="result" row>
-          <v-radio label="勝ち" value="1"></v-radio>
-          <v-radio label="負け" value="2"></v-radio>
-        </v-radio-group>
         <v-select 
           v-model="mustMission" 
           :items="missions" 
@@ -75,6 +79,7 @@
             class="ma-2 white--text register"
             @click="registerSingles()"
             v-if="this.match == 1"
+            :disabled="singles1 === ''  || singles2 === ''"
           >
             シングルスの試合結果登録
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
@@ -85,6 +90,7 @@
             class="ma-2 white--text register"
             @click="registerDoubles()"
             v-if="this.match == 2"
+            :disabled="doubles1 === ''  || doubles2 === ''"
           >
             ダブルスの試合結果登録
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
@@ -104,8 +110,30 @@ export default {
   data() {
     return {
       name: "",
-      singlesPlayers: ["いいだ", "おかだ", "やまぐち", "いしい"],
-      doublesPlayers: ["いいだ・やまだ", "おかだ・いけだ", "やまぐち・たなか", "いしい・さとう"],
+      singlesPlayers1: [
+        {
+          singlesPlayerId: "",
+          singlesPlayerName:""
+        }
+      ],
+      singlesPlayers2: [
+        {
+          singlesPlayerId: "",
+          singlesPlayerName:""
+        }
+      ],
+      doublesPlayers1: [
+        {
+          doublesPlayerId: "",
+          doublesPlayerName:""
+        }
+      ],
+      doublesPlayers2: [
+        {
+          doublesPlayerId: "",
+          doublesPlayerName:""
+        }
+      ],
       missions: [
        { 
          id : 1,
@@ -122,24 +150,65 @@ export default {
       ],
       scores:["0","1","2","3","4"],
       match: "1",
-      single1: "",
-      single2: "",
-      double1: "",
-      double2: "",
-      double3: "",
-      double4: "",
+      singles1: "",
+      singles2: "",
+      doubles1: "",
+      doubles2: "",
       score1:"0",
       score2:"0",
-      result: "1",
       mustMission: 1,
       addMission: 1,
     };
   },
+  watch: {
+    singles1() {
+      this.$axios.get('/findPlayersExceptSinglesPlayerId', { params: { singlesPlayerId: this.singles1 } }).then((res) => {
+        this.singlesPlayers2 = res.data
+      })
+    },
+    doubles1() {
+      this.$axios.get('/showPlayersExceptDoublesPlayerId', { params: { doublesPlayerId: this.doubles1 } }).then((res) => {
+        this.doublesPlayers2 = res.data
+      })
+    }
+  },
+  created() {
+    this.$axios.get('/showAllSinglesPlayers').then((res) => {
+      this.singlesPlayers1 = res.data
+    })
+    this.$axios.get('/showAllDoublesPlayer').then((res) => {
+      this.doublesPlayers1 = res.data
+    })
+  },
   methods: {
-   editSingles() {
+   registerSingles() {
+    this.$axios.post('/registerSinglesScore', {
+      singlesPlayerId: this.singles1,
+      opponentSinglesPlayerId: this.singles2,
+      myMatchScore: this.score1,
+      opponentMatchScore: this.score2,
+      mustMission: this.mustMission,
+      addMission: this.addMission
+    }).then((res) => {
+      if(res.data === null) {
+        alert('登録しました')
+      }
+    })
     this.$router.push('/')
    },
-   editDoubles() {
+   registerDoubles() {
+    this.$axios.post('/registerDoublesScore', {
+    doublesPlayerId: this.doubles1,
+    opponentDoublesPlayerId: this.doubles2,
+    myMatchScore: this.score1,
+    opponentMatchScore: this.score2,
+    mustMission: this.mustMission,
+    addMission: this.addMission
+    }).then((res) => {
+      if(res.data === null) {
+        alert('登録しました')
+      }
+    })
     this.$router.push('/')
    }
   }

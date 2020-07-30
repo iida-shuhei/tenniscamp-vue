@@ -11,6 +11,7 @@
               item-text="singlesPlayerName"
               item-value="singlesPlayerId" 
               label="名前を選択"
+              no-data-text="全員登録されました"
               required
             ></v-select>
             <v-select
@@ -19,6 +20,7 @@
               item-text="singlesPlayerName"
               item-value="singlesPlayerId"
               label="名前を選択"
+              no-data-text="全員登録されました"
               required
             ></v-select>
           </v-col>
