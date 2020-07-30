@@ -10,25 +10,42 @@
           <v-radio label="シングルス" value="1"></v-radio>
           <v-radio label="ダブルス" value="2"></v-radio>
         </v-radio-group>
-        <v-row dense>
+        <v-row dense v-if="match == 1">
           <v-col v-for="(result, i) in results" :key="i" cols="12">
-            <v-card v-if="this.match == 1">
+            <v-card>
               <div class="d-flex flex-no-wrap justify-space-between">
-                <div>
-                  <div>{{ transferSinglesPlayerName(result.playerId) }}</div>
+                <v-col cols="4">
+                  <v-card>
+                    <span>{{ transferSinglesPlayerName(result.playerId) }}</span>
+                  </v-card>
+                </v-col>
+                <v-col cols="1">
                   <span>{{ result.playerScore }}</span>
-                  vs
-                  <div>{{ transferSinglesOpponentName(result.opponentId) }}</div>
+                </v-col>
+                <v-col cols="1">ー</v-col>
+                <v-col cols="1">
                   <span>{{ result.opponentScore }}</span>
-                </div>
+                </v-col>
+                <v-col cols="4">
+                  <v-card>
+                    <span>{{ transferSinglesOpponentName(result.opponentId) }}</span>
+                  </v-card>
+                </v-col>
               </div>
+              <v-btn icon color="deep-orange" class="btn" @click="deleteSingles(result)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
             </v-card>
-            <v-card v-if="this.match == 2">
+          </v-col>
+        </v-row>
+        <v-row dense v-if="match == 2">
+          <v-col v-for="(result, i) in results" :key="i" cols="12">
+            <v-card>
               <div class="d-flex flex-no-wrap justify-space-between">
                 <div>
                   <div>{{ transferDoublesPlayerName(result.playerId) }}</div>
                   <span>{{ result.playerScore }}</span>
-                  vs
+                  -
                   <div>{{ transferDoublesOpponentName(result.opponentId) }}</div>
                   <span>{{ result.opponentScore }}</span>
                 </div>
@@ -69,7 +86,6 @@ export default {
       this.loading = true;
       if (this.match === "1") {
         this.$axios.get("/showSinglesResult").then((res) => {
-          console.log(res.data)
           this.results = res.data;
           this.loading = false;
         });
@@ -83,7 +99,7 @@ export default {
     },
   },
   created() {
-    this.$axios.get("/showDoublesResult").then((res) => {
+    this.$axios.get("/showSinglesResult").then((res) => {
       this.results = res.data;
       this.loading = false;
     });
@@ -113,9 +129,10 @@ export default {
       );
       return opponent.doublesPlayerName;
     },
-    deleteSingles() {
-      this.$router.push("/");
-    },
+    // deleteSingles(result) {
+    //   this.$axios.
+    //   this.$router.push("/");
+    // },
     deleteDoubles() {
       this.$router.push("/");
     },
@@ -154,12 +171,6 @@ export default {
   border-radius: 3px;
   padding: 3px;
   color: #ffffff;
-}
-.btn {
-  width: 100%;
-}
-.register {
-  width: 94%;
 }
 .title {
   margin-top: 30px;
