@@ -11,14 +11,14 @@ Vue.prototype.$axios = axios
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: "AIzaSyCy-lFi4HjNQNm7d_6rxxPWP_9eFXirja4",
-  authDomain: "tenniscamp-vue.firebaseapp.com",
-  databaseURL: "https://tenniscamp-vue.firebaseio.com",
-  projectId: "tenniscamp-vue",
-  storageBucket: "tenniscamp-vue.appspot.com",
-  messagingSenderId: "860330926931",
-  appId: "1:860330926931:web:7d7bbc1e246636716e37a6",
-  measurementId: "G-S5TVW931CM"
+  apiKey: "AIzaSyCphC140TfdGnuPzmzfpM4qqD17yj_wQA8",
+  authDomain: "tenniscamp-vue-4594c.firebaseapp.com",
+  databaseURL: "https://tenniscamp-vue-4594c.firebaseio.com",
+  projectId: "tenniscamp-vue-4594c",
+  storageBucket: "tenniscamp-vue-4594c.appspot.com",
+  messagingSenderId: "142143231961",
+  appId: "1:142143231961:web:66e50f7f57125d3664ebc8",
+  measurementId: "G-W6JN8XZHGG"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
