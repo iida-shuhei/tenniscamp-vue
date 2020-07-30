@@ -42,14 +42,27 @@
           <v-col v-for="(result, i) in results" :key="i" cols="12">
             <v-card>
               <div class="d-flex flex-no-wrap justify-space-between">
-                <div>
-                  <div>{{ transferDoublesPlayerName(result.playerId) }}</div>
+                <v-col cols="4">
+                  <v-card>
+                    <span>{{ transferDoublesPlayerName(result.playerId) }}</span>
+                  </v-card>
+                </v-col>
+                <v-col cols="1">
                   <span>{{ result.playerScore }}</span>
-                  -
-                  <div>{{ transferDoublesOpponentName(result.opponentId) }}</div>
+                </v-col>
+                <v-col cols="1">ー</v-col>
+                <v-col cols="1">
                   <span>{{ result.opponentScore }}</span>
-                </div>
+                </v-col>
+                <v-col cols="4">
+                  <v-card>
+                    <span>{{ transferDoublesOpponentName(result.opponentId) }}</span>
+                  </v-card>
+                </v-col>
               </div>
+              <v-btn icon color="deep-orange" class="btn" @click="deleteDoubles(result)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
             </v-card>
           </v-col>
         </v-row>
@@ -129,12 +142,31 @@ export default {
       );
       return opponent.doublesPlayerName;
     },
-    // deleteSingles(result) {
-    //   this.$axios.
-    //   this.$router.push("/");
-    // },
-    deleteDoubles() {
-      this.$router.push("/");
+    deleteSingles(result) {
+      let isOk = window.confirm("この試合結果を削除していい？");
+      if (isOk) {
+        this.$axios.post("/deleteSinglesScore", {
+          playerId: result.playerId,
+          opponentPlayerId: result.opponentId,
+        }).then((res) => {
+          if(res.data == "") {
+            this.$router.push('/')
+          }
+        })
+      }
+    },
+    deleteDoubles(result) {
+      let isOk = window.confirm("この試合結果を削除していい？");
+      if (isOk) {
+        this.$axios.post("/deleteDoublesScore", {
+          playerId: result.playerId,
+          opponentPlayerId: result.opponentId,
+        }).then((res) => {
+          if(res.data == "") {
+            this.$router.push('/')
+          }
+        })
+      }
     },
   },
 };

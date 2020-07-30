@@ -32,7 +32,6 @@
             <v-card-actions>
               現在の順位 :
               <span v-text="player.ranking"></span>位
-              <v-btn @click="openPlayerDetail()" tile outlined color="success" class="right">対戦結果を表示</v-btn>
             </v-card-actions>
 
           </v-card>
